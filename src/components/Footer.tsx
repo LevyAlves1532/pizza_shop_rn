@@ -5,19 +5,31 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 // THEMEs
 import { BORDERRADIUS, COLORS, FONTFAMILY, FONTSIZES, SPACINGS } from "../themes/theme";
 
-export function FooterPrice() {
+interface IFooterPriceProps {
+  title: string;
+  price: any;
+  label: string
+  pressProductsHandler: any;
+}
+
+export function FooterPrice({ title, price, label, pressProductsHandler }: IFooterPriceProps) {
   return (
     <View style={styles.FooterPriceContainer}>
       <View style={styles.FooterPriceDetails}>
-        <Text style={styles.FooterPriceTitle}>Price</Text>
+        <Text style={styles.FooterPriceTitle}>
+          {title}
+        </Text>
         <Text style={styles.FooterPriceCurrency}>
-          $ <Text style={styles.FooterPrice}>27.90</Text>
+          {price.currency} <Text style={styles.FooterPrice}>{price.value.toFixed(2)}</Text>
         </Text>
       </View>
 
       <View style={styles.FooterPriceButtonArea}>
-        <TouchableOpacity style={styles.FooterPriceButton}>
-          <Text style={styles.FooterPriceButtonText}>Add To Cart</Text>
+        <TouchableOpacity 
+          onPress={pressProductsHandler}
+          style={styles.FooterPriceButton}
+        >
+          <Text style={styles.FooterPriceButtonText}>{label}</Text>
         </TouchableOpacity>
       </View>
     </View>

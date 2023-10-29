@@ -19,12 +19,13 @@ import { FormProductAdd } from "../forms/Product/Add";
 // THEMEs
 import { COLORS } from "../themes/theme";
 
-export function ProductScreen({ route }: any) {
+export function ProductScreen({ navigation, route }: any) {
   const ProductOfId = useStore(
     (state: any) => route.params.type === "Pizza"
       ? state.PizzasList
       : state.DrinksList
   ).find((product: any) => product.id === route.params.id);
+  const addToCart = useStore((state: any) => state.addToCart);
 
   const [ price, setPrice ] = useState<any>(ProductOfId.prices[0]);
   const [ count, setCount ] = useState<number>(1);
@@ -39,6 +40,7 @@ export function ProductScreen({ route }: any) {
           name={ProductOfId.name}
         />
         <FormProductAdd 
+          type={route.params.type}
           prices={ProductOfId.prices} 
           price={price}
           count={count}
@@ -61,7 +63,18 @@ export function ProductScreen({ route }: any) {
             setIsMore(!isMore);
           }}
         />
-        <FooterPrice />
+        <FooterPrice 
+          title="Price"
+          price={{ 
+            ...price, 
+            value: price.value * count 
+          }}
+          label="Add To Cart"
+          pressProductsHandler={() => {
+            addToCart(ProductOfId, price, count);
+            navigation.navigate("Cart");
+          }}
+        />
       </ScrollView>
     </View>
   );

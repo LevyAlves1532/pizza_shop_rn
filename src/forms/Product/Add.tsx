@@ -9,6 +9,7 @@ import { BORDERRADIUS, COLORS, FONTFAMILY, FONTSIZES, SPACINGS } from "../../the
 import { Feather } from "@expo/vector-icons";
 
 interface IFormProductAddProps {
+  type: string;
   prices: any[];
   price: any;
   count: number;
@@ -18,6 +19,7 @@ interface IFormProductAddProps {
 }
 
 export function FormProductAdd({ 
+  type,
   prices, 
   price, 
   count, 
@@ -40,6 +42,10 @@ export function FormProductAdd({
                       el.size === price.size
                         ? COLORS.primaryRedHex
                         : COLORS.primaryBlackRGBA,
+                    minWidth: 
+                      (type === "Drink" && index === 0) 
+                        ? (SPACINGS.space_40 * 3.2) + 10
+                        : SPACINGS.space_40 + 10
                   }
                 ]}
                 onPress={() => {
@@ -108,7 +114,6 @@ const styles = StyleSheet.create({
   },
   FormAddButtonSizes: {
     flex: 1,
-    minWidth: SPACINGS.space_40 + 10,
     paddingHorizontal: SPACINGS.space_12,
     paddingVertical: SPACINGS.space_4 + 2,
     borderRadius: BORDERRADIUS.radius_5,
