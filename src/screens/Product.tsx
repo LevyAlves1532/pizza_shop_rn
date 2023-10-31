@@ -26,6 +26,7 @@ export function ProductScreen({ navigation, route }: any) {
       : state.DrinksList
   ).find((product: any) => product.id === route.params.id);
   const addToCart = useStore((state: any) => state.addToCart);
+  const calculateTotalPrice = useStore((state: any) => state.calculateTotalPrice);
 
   const [ price, setPrice ] = useState<any>(ProductOfId.prices[0]);
   const [ count, setCount ] = useState<number>(1);
@@ -72,6 +73,7 @@ export function ProductScreen({ navigation, route }: any) {
           label="Add To Cart"
           pressProductsHandler={() => {
             addToCart(ProductOfId, price, count);
+            calculateTotalPrice();
             navigation.navigate("Cart");
           }}
         />

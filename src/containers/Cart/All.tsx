@@ -12,9 +12,18 @@ import { BORDERRADIUS, COLORS, FONTFAMILY, FONTSIZES, SPACINGS } from "../../the
 interface ICartAllProps {
   data: any[];
   goHomeHandler: any;
+  goToProductHandler: any;
+  decrementSizeQuantityHandler: any;
+  incrementSizeQuantityHandler: any;
 }
 
-export function CartAll({ data, goHomeHandler }: ICartAllProps) {
+export function CartAll({ 
+  data, 
+  goHomeHandler, 
+  goToProductHandler,
+  decrementSizeQuantityHandler,
+  incrementSizeQuantityHandler,
+}: ICartAllProps) {
   return (
     <View
       style={[
@@ -47,6 +56,15 @@ export function CartAll({ data, goHomeHandler }: ICartAllProps) {
           data.map((el: any, key: number) => (
             <CardCart 
               data={el}
+              goToProductHandler={() => {
+                goToProductHandler(el.id, el.type);
+              }}
+              decrementSizeQuantityHandler={(size: string) => {
+                decrementSizeQuantityHandler(el.id, el.type, size);
+              }}
+              incrementSizeQuantityHandler={(size: string) => {
+                incrementSizeQuantityHandler(el.id, el.type, size);
+              }}
               key={key.toString()}
             />
           ))

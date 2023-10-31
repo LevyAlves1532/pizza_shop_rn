@@ -10,13 +10,24 @@ import { Feather } from "@expo/vector-icons";
 
 interface ICardCartProps {
   data: any;
+  goToProductHandler: any;
+  decrementSizeQuantityHandler: any;
+  incrementSizeQuantityHandler: any;
 }
 
-export function CardCart({ data }: ICardCartProps) {
+export function CardCart({ 
+  data, 
+  goToProductHandler, 
+  decrementSizeQuantityHandler,
+  incrementSizeQuantityHandler,
+}: ICardCartProps) {
   // console.log(data);
   return (
     <View style={styles.CardCartContainer}>
-      <TouchableOpacity style={styles.CartCartProduct}>
+      <TouchableOpacity 
+        onPress={goToProductHandler}
+        style={styles.CartCartProduct}
+      >
         <Image 
           source={data.image} 
           style={styles.CardCartImage}
@@ -36,14 +47,10 @@ export function CardCart({ data }: ICardCartProps) {
           >
             {data.name}
           </Text>
-          { data.type === "Pizza" && (
-              <>
-                <Text style={styles.CardCartSubTitle}>{data.category}</Text>
-                <Text style={styles.CardCartIngredients}>
-                  {data.ingredients.join(", ")}
-                </Text>
-              </>
-            )
+          { data.type === "Pizza" && 
+            <View style={{ marginBottom: SPACINGS.space_10 }}>
+              <Text style={styles.CardCartSubTitle}>{data.category}</Text>
+            </View>
           }
           <View style={styles.CardCartAvaliation}>
             <Feather 
@@ -70,7 +77,12 @@ export function CardCart({ data }: ICardCartProps) {
               </View>
 
               <View style={styles.CardCartQuantity}>
-                <TouchableOpacity style={styles.CardCartQuantityButton}>
+                <TouchableOpacity 
+                  onPress={() => {
+                    decrementSizeQuantityHandler(price.size);
+                  }}
+                  style={styles.CardCartQuantityButton}
+                >
                   <Feather 
                     name="minus"
                     color={COLORS.primaryBlackHex}
@@ -80,7 +92,12 @@ export function CardCart({ data }: ICardCartProps) {
                 <View style={styles.CardCartQuantityTextArea}>
                   <Text>{price.quantity}</Text>
                 </View>
-                <TouchableOpacity style={styles.CardCartQuantityButton}>
+                <TouchableOpacity 
+                  onPress={() => {
+                    incrementSizeQuantityHandler(price.size);
+                  }}
+                  style={styles.CardCartQuantityButton}
+                >
                   <Feather 
                     name="plus"
                     color={COLORS.primaryBlackHex}
@@ -129,13 +146,6 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.open_sans_medium,
     marginBottom: SPACINGS.space_4,
     color: COLORS.secondaryWhiteHex,
-  },
-  CardCartIngredients: {
-    fontSize: FONTSIZES.size_12,
-    fontFamily: FONTFAMILY.open_sans_semibold,
-    color: COLORS.primaryWhiteHex,
-    flexWrap: "wrap",
-    marginBottom: SPACINGS.space_10,
   },
   CardCartAvaliation: {
     flexDirection: "row",
@@ -194,9 +204,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   CardCartValueCurrency: {
+    width: SPACINGS.space_40 * 2,
     fontSize: FONTSIZES.size_16,
     color: COLORS.primaryYellowHex,
     fontFamily: FONTFAMILY.open_sans_semibold,
+    textAlign: "right",
   },
   CardCartValue: {
     color: COLORS.primaryWhiteHex,

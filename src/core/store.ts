@@ -51,7 +51,45 @@ export const useStore = create(
             }
             state.CartList = CartList;
           })
-        )
+        ),
+      calculateTotalPrice: () => 
+        set(
+          produce(state => {
+            let tmpValue = 0;
+            state.CartList.forEach((product: any) => {
+              product.prices.forEach((price: any) => {
+                tmpValue += price.value * price.quantity;
+              });
+            });
+            state.CartPrice = tmpValue;
+          })
+        ),
+      incrementSizeQuantity: (id: number, type: string, size: string) =>
+        set(
+          produce(state => {
+            const CartList = [ ...state.CartList ];
+            const product = CartList.find((product: any) => product.id === id && product.type === type);
+            const price = product.prices.find((price: any) => price.size === size);
+            price.quantity += 1;
+            state.CartList = CartList;
+          })
+        ),
+      decrementSizeQuantity: (id: number, type: string, size: string) =>
+          set(
+            produce(state => {
+              let CartList = [ ...state.CartList ];
+              const product = CartList.find((product: any) => product.id === id && product.type === type);
+              const price = product.prices.find((price: any) => price.size === size);
+              if (price.quantity > 1) {
+                price.quantity -= 1;
+              } else if (price.quantity === 1 && product.prices.length > 1) {
+                product.prices = product.prices.filter((price: any) => price.size !== size);
+              } else {
+                CartList = CartList.filter(product => product.id !== id);
+              }
+              state.CartList = CartList;
+            })
+          ),
     }),
     {
       name: "pizza-app",
