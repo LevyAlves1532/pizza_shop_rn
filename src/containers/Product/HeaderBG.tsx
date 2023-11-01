@@ -11,9 +11,16 @@ import { BORDERRADIUS, SPACINGS } from "../../themes/theme";
 interface IProductHeaderBG {
   image: ImageProps;
   name: string;
+  goBackHandler: any;
+  buttonFavorite: any;
 }
 
-export function ProductHeaderBG({ image, name }: IProductHeaderBG) {
+export function ProductHeaderBG({ 
+  image, 
+  name, 
+  goBackHandler, 
+  buttonFavorite 
+}: IProductHeaderBG) {
   return (
     <View style={styles.HeaderBackgroundArea}>
       <ImageBackground 
@@ -23,6 +30,8 @@ export function ProductHeaderBG({ image, name }: IProductHeaderBG) {
         <Header 
           title={name}
           shadowText
+          goBackHandler={goBackHandler}
+          buttonFavorite={buttonFavorite}
         />
       </ImageBackground>
     </View>

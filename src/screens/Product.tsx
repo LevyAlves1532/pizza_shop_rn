@@ -25,6 +25,14 @@ export function ProductScreen({ navigation, route }: any) {
       ? state.PizzasList
       : state.DrinksList
   ).find((product: any) => product.id === route.params.id);
+  const FavoriteOfId = useStore(
+    (state: any) => state.FavoriteList.length > 0
+      ? state.FavoriteList.find(
+          (product: any) => product.id === route.params.id && product.type === route.params.type
+        )
+      : null
+  );
+  const toggleToFavorites = useStore((state: any) => state.toggleToFavorites);
   const addToCart = useStore((state: any) => state.addToCart);
   const calculateTotalPrice = useStore((state: any) => state.calculateTotalPrice);
 
@@ -39,6 +47,15 @@ export function ProductScreen({ navigation, route }: any) {
         <ProductHeaderBG 
           image={ProductOfId.image}
           name={ProductOfId.name}
+          goBackHandler={() => {
+            navigation.pop();
+          }}
+          buttonFavorite={{
+            favoriteProductHandler: () => {
+              toggleToFavorites(ProductOfId);
+            },
+            active: !!FavoriteOfId,
+          }}
         />
         <FormProductAdd 
           type={route.params.type}

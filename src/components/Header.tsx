@@ -1,6 +1,6 @@
 // LIBs
 import React from "react";
-import { StyleSheet, View, Text, Image } from "react-native";
+import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 
 // THEMEs
 import { BORDERRADIUS, COLORS, FONTFAMILY, FONTSIZES, SPACINGS } from "../themes/theme";
@@ -12,18 +12,43 @@ interface IHeaderProps {
   iconName?: any;
   title?: string;
   shadowText?: boolean;
+  goBackHandler?: any;
+  buttonFavorite?: {
+    favoriteProductHandler: any;
+    active: boolean;
+  }
 }
 
-export function Header({ iconName, title, shadowText }: IHeaderProps) {
+export function Header({ 
+  iconName, 
+  title, 
+  shadowText, 
+  goBackHandler, 
+  buttonFavorite, 
+}: IHeaderProps) {
   return (
     <View style={styles.HeaderContainer}>
-      <View style={styles.HeaderIconArea}>
-        <Feather 
-          name="menu" 
-          color={COLORS.primaryBlackHex} 
-          size={FONTSIZES.size_14} 
-        />
-      </View>
+      { !goBackHandler ? (
+          <View style={styles.HeaderIconArea}>
+            <Feather 
+              name="menu" 
+              color={COLORS.primaryBlackHex} 
+              size={FONTSIZES.size_14} 
+            />
+          </View>
+        ) : (
+          <TouchableOpacity 
+            onPress={goBackHandler}
+            style={styles.HeaderIconArea}
+          >
+            <Feather 
+              name="chevron-left" 
+              color={COLORS.primaryBlackHex} 
+              size={FONTSIZES.size_14} 
+            />
+          </TouchableOpacity>
+        )
+      }
       { title && 
         <View style={styles.HeaderTitleArea}>
           { iconName &&
@@ -52,14 +77,32 @@ export function Header({ iconName, title, shadowText }: IHeaderProps) {
           </Text>
         </View>
       }
-      <View style={styles.HeaderProfileArea}>
-        <Image 
-          source={{ 
-            uri: "https://media.licdn.com/dms/image/D4D03AQF8kxY_rBl9VQ/profile-displayphoto-shrink_200_200/0/1665876524542?e=1703721600&v=beta&t=W38S3uym17tMKGlIASrrSWDJY-nRMJYXMJBNtUBp1HQ" 
-          }} 
-          style={styles.HeaderProfile}
-        />
-      </View>
+      { !buttonFavorite ? (
+          <View style={styles.HeaderProfileArea}>
+            <Image 
+              source={{ 
+                uri: "https://media.licdn.com/dms/image/D4D03AQF8kxY_rBl9VQ/profile-displayphoto-shrink_200_200/0/1665876524542?e=1703721600&v=beta&t=W38S3uym17tMKGlIASrrSWDJY-nRMJYXMJBNtUBp1HQ" 
+              }} 
+              style={styles.HeaderProfile}
+            />
+          </View>
+        ) : (
+          <TouchableOpacity 
+            onPress={buttonFavorite.favoriteProductHandler}
+            style={styles.HeaderIconArea}
+          >
+            <Feather 
+              name="heart" 
+              color={
+                buttonFavorite.active
+                  ? COLORS.primaryRedHex
+                  : COLORS.primaryBlackHex
+              } 
+              size={FONTSIZES.size_14} 
+            />
+          </TouchableOpacity>
+        )
+      }
     </View>
   );
 }
