@@ -14,7 +14,6 @@ export const useStore = create(
     (set, get) => ({
       PizzasList: [ ...Pizzas ],
       DrinksList: [ ...Drinks ],
-      SizeMontage: [ ...SizeMontage ],
       CartList: [],
       FavoriteList: [],
       OrderHistoryList: [],
@@ -107,6 +106,18 @@ export const useStore = create(
               FavoriteList.unshift(product);
             }
             state.FavoriteList = FavoriteList;
+          })
+        ),
+      addToOrderHistoryList: () => 
+        set(
+          produce(state => {
+            const obj: any = {};
+            obj.Date = new Date().toLocaleDateString();
+            obj.CartPrice = state.CartPrice;
+            obj.Products = [ ...state.CartList ];
+            state.OrderHistoryList.unshift(obj);
+            state.CartList = [];
+            state.CartPrice = 0;
           })
         ),
     }),

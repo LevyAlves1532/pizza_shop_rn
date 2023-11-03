@@ -27,8 +27,8 @@ export const COLORS: IColorThemeTypes = {
   primaryYellowRGBA: "rgba(247, 255, 0, 0.25)",
   secondaryBlackHex: "rgb(136, 136, 136)",
   secondaryBlackRGBA: "rgb(136, 136, 136, 0.25)",
-  secondaryRedHex: "rgb(255, 72, 72)",
-  secondaryRedRGBA: "rgba(255, 72, 72, 0.25)",
+  secondaryRedHex: "rgb(220, 10, 10)",
+  secondaryRedRGBA: "rgba(220, 10, 10, 0.25)",
   secondaryWhiteHex: "rgb(221, 221, 221)",
 }
 
