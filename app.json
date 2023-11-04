@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Shop_Pizza_App",
+    "name": "Shop Pizza House",
     "slug": "Shop_Pizza_App",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#FF4848"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -20,12 +20,17 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#FF4848"
       },
       "package": "com.levy_alves.Shop_Pizza_App"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ded9b4f2-daba-448e-837e-7aeb1154f78b"
+      }
     }
   }
 }
