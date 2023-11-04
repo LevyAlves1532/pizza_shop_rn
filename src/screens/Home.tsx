@@ -40,7 +40,7 @@ export function HomeScreen({ navigation }: any) {
     setSearch(text);
     let pizzas = [ ...PizzasList ];
     pizzas = pizzas.filter((pizza: any) => 
-      pizza.name.indexOf(text) > -1);
+      pizza.name.toLowerCase().indexOf(text.toLowerCase()) > -1);
     setSelected("All");
     setSortedPizzas(pizzas);
   }

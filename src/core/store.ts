@@ -112,12 +112,19 @@ export const useStore = create(
         set(
           produce(state => {
             const obj: any = {};
-            obj.Date = new Date().toLocaleDateString();
+            obj.Date = new Date().toDateString() 
+              + " " + new Date().toLocaleTimeString();
             obj.CartPrice = state.CartPrice;
-            obj.Products = [ ...state.CartList ];
+            obj.CartList = [ ...state.CartList ];
             state.OrderHistoryList.unshift(obj);
             state.CartList = [];
             state.CartPrice = 0;
+          })
+        ),
+      clearToOrderHistoryList: () => 
+        set(
+          produce(state => {
+            state.OrderHistoryList = [];
           })
         ),
     }),
