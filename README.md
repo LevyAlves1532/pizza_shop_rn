@@ -65,7 +65,7 @@ Todas as funcionalidades do projeto:
 
 ## Links
 
-  * Repositorio: https://github.com/LevyAlves1532/coffee_shop_rn
+  * Repositorio: https://github.com/LevyAlves1532/pizza_shop_rn
     - Caso você encontre algum bug, ou tenha dúvidas sobre o projeto, entre em contato levy.pereiraA1532@gmail.com, desde já agradeço pela atenção!
 
   ## Versão do Projeto
